@@ -160,7 +160,7 @@ public class SBinTre<T> {
     //  Oppgave 3
     //  Se Programkode 5.1.7 g)
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        Node<T> barn = p;                                   //  Hjelpevariabel for å presissere barn. Husk at alle har
+        Node<T> barn = p;                                   //  Hjelpevariabel for å presisere barn. Husk at alle har
                                                             //  en gang vært et barn
 
         Objects.requireNonNull(barn, "Ulovlig med nullverdier.");
@@ -184,7 +184,7 @@ public class SBinTre<T> {
 
     //  Oppgave 3
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        Node<T> barn = p;                                   //  Hjelpevariabel for å presissere barn. Husk at alle har
+        Node<T> barn = p;                                   //  Hjelpevariabel for å presisere barn. Husk at alle har
                                                             //  en gang vært et barn
 
         Node<T> forelder = barn.forelder;                   //  Hjelpevariabel for å presissere forelder.
@@ -208,16 +208,34 @@ public class SBinTre<T> {
         }
     }
 
+    //  Oppgave 4
     public void postorden(Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        Node<T> postorden = førstePostorden(rot);                   //  Instansierer den første postorden
+        oppgave.utførOppgave(postorden.verdi);                      //  Skriver ut den første postorden
+
+        //  While-løkke som finner de neste verdiene av postorden frem til det når null
+        while (postorden.forelder != null) {
+            postorden = nestePostorden(postorden);                  //  Neste postorden
+            oppgave.utførOppgave(postorden.verdi);                  //  Skriver ut neste postorden
+        }
     }
 
     public void postordenRecursive(Oppgave<? super T> oppgave) {
         postordenRecursive(rot, oppgave);
     }
 
+    //  Oppgave 4
+    //  Se https://youtu.be/9OBxLX0W2gY?t=826
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        //  Basistilfellet hvis man ikke har noen noder for å stanse det rekursive kallet. Et obligatorisk kriterium
+        //  for et rekursivt kall!
+        if (p == null) {
+            return;
+        }
+        postordenRecursive(p.venstre, oppgave);         //  Rekursivt kall for venstrebarn
+        postordenRecursive(p.høyre, oppgave);           //  Rekursivt kall for høyrebarn
+        oppgave.utførOppgave(p.verdi);                  //  Skriver ut noden
     }
 
     public ArrayList<T> serialize() {
