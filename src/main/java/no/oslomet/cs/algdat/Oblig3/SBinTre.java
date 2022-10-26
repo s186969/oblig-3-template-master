@@ -92,7 +92,7 @@ public class SBinTre<T> {
 
         int cmp = 0;                                    //  Hjelpevariabel for komparatoren
 
-        //  While-løkke som forsetter frem til barnet er ute av treet, dvs. barnet kan har ikke barn.
+        //  While-løkke som forsetter frem til barnet er ute av treet, dvs. barnet har ikke barn.
         //  Denne forteller at foreldrene vet hvem barna er.
         while (barn != null) {
             forelder = barn;                            //  Når barnet får et barn blir den en forelder
@@ -107,8 +107,8 @@ public class SBinTre<T> {
             }
         }
 
-        // Når barn er på null, er forelder den siste vi passerte.
-        // Kodene under forteller barnet hvem foreldren er.
+        //  Når barn har null under seg, dvs. at barnet ikke har barn, vet vi at forelder var den siste vi passerte
+        //  barnet. Kodene under forteller barnet hvem foreldren er.
         barn = new Node<>(verdi, forelder);             //  Ett nyfødt barn
 
         if (forelder == null) {
@@ -130,8 +130,28 @@ public class SBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+    //  Oppgave 2
     public int antall(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Node<T> barn = rot;
+        int antallVerdi = 0;                                //  Hjelpevariabel for å telle antall forekomster
+                                                            //  av en verdi
+
+        while (barn != null) {
+            int cmp = comp.compare(verdi, barn.verdi);      //  Sammenligner verdiene ved hjelp av komparatoren
+            
+            if (cmp < 0) {
+                barn = barn.venstre;                        //  Tall som er mindre enn roten, blir lagt på venstre side
+            } else {
+                if (cmp == 0) {
+                    antallVerdi++;                          //  Teller antall forekomster som kommer inn. Den ligger på
+                                                            //  høyre side fordi alle noder som er større enn eller lik
+                                                            //  noden skal på høyre side.
+                }
+                barn = barn.høyre;                          //  Tall som er lik eller større enn roten, blir lagt på
+                                                            //  høyre side
+            }
+        }
+        return antallVerdi;
     }
 
     public void nullstill() {
@@ -166,10 +186,15 @@ public class SBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
     public static void main(String[] args) {
-        Integer[] a = {4,7,2,9,5,10,8,1,3,6};
+        Integer[] a = {4,7,2,9,4,10,8,7,4,6};
         SBinTre<Integer> tre = new SBinTre<>(Comparator.naturalOrder());
-        for (int verdi : a) {tre.leggInn(verdi); }
-        System.out.println(tre.antall());  // Utskrift: 10
+        for (int verdi : a) { tre.leggInn(verdi); }
+
+        System.out.println(tre.antall());      // Utskrift: 10
+        System.out.println(tre.antall(5));     // Utskrift: 0
+        System.out.println(tre.antall(4));     // Utskrift: 3
+        System.out.println(tre.antall(7));     // Utskrift: 2
+        System.out.println(tre.antall(10));    // Utskrift: 1
     }
 
 } // ObligSBinTre
