@@ -135,10 +135,9 @@ public class SBinTre<T> {
         Node<T> barn = rot;
         int antallVerdi = 0;                                //  Hjelpevariabel for å telle antall forekomster
                                                             //  av en verdi
-
         while (barn != null) {
             int cmp = comp.compare(verdi, barn.verdi);      //  Sammenligner verdiene ved hjelp av komparatoren
-            
+
             if (cmp < 0) {
                 barn = barn.venstre;                        //  Tall som er mindre enn roten, blir lagt på venstre side
             } else {
@@ -158,12 +157,55 @@ public class SBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+    //  Oppgave 3
+    //  Se Programkode 5.1.7 g)
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Node<T> barn = p;                                   //  Hjelpevariabel for å presissere barn. Husk at alle har
+                                                            //  en gang vært et barn
+
+        Objects.requireNonNull(barn, "Ulovlig med nullverdier.");
+
+        //  While-loop som traverserer nedover til barn ikke har barn
+        while (true) {
+            //  Venstre side
+            if (barn.venstre != null) {
+                barn = barn.venstre;
+
+            //  Høyre side
+            } else if (barn.høyre != null) {
+                barn = barn.høyre;
+
+            //  Hvis barnet er en rot
+            } else {
+                return barn;
+            }
+        }
     }
 
+    //  Oppgave 3
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Node<T> barn = p;                                   //  Hjelpevariabel for å presissere barn. Husk at alle har
+                                                            //  en gang vært et barn
+
+        Node<T> forelder = barn.forelder;                   //  Hjelpevariabel for å presissere forelder.
+
+        //  Hvis forelder er null, returnerer den null tilbake. Dette innebærer at det ikke finnes en nestepostorden
+        //  hvis treet inneholder kun roten
+        if (forelder == null) {
+            return null;
+        }
+
+        //  Hvis høyrebarnet har samme verdi som blir tatt inn, returner den hvem forelderen er. Dette innbærer at man
+        //  traverserer fra høyrebarn til sitt forelder. Gjelder også hvis høyrebarnet er tomt, altså forelderen har
+        //  bare et venstrebarn. Nødvendig da man skal traversere fra venstrebarn til sitt forelder.
+        if (forelder.høyre == barn || forelder.høyre == null) {
+            return forelder;
+
+        //  Kaller underliggende metode for å undersøke om oppgitte verdi har en forelder som har et høyrebarn og
+        //  finner nestepostorden
+        } else {
+            return førstePostorden(forelder.høyre);
+        }
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
