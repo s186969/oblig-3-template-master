@@ -1,10 +1,7 @@
 package no.oslomet.cs.algdat.Oblig3;
 
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class SBinTre<T> {
     private static final class Node<T>   // en indre nodeklasse
@@ -210,7 +207,6 @@ public class SBinTre<T> {
 
     //  Oppgave 4
     public void postorden(Oppgave<? super T> oppgave) {
-
         Node<T> postorden = førstePostorden(rot);                   //  Instansierer den første postorden
         oppgave.utførOppgave(postorden.verdi);                      //  Skriver ut den første postorden
 
@@ -238,12 +234,39 @@ public class SBinTre<T> {
         oppgave.utførOppgave(p.verdi);                  //  Skriver ut noden
     }
 
+    //  Oppgave 5
+    //  Se avsnitt 5.1.6  Traverseringer - nivåorden
     public ArrayList<T> serialize() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        ArrayList<T> liste = new ArrayList<T>();                    //  En liste over det binæret treet
+        ArrayDeque<Node<T>> kø = new ArrayDeque<Node<T>>();         //  Køen som tar inn nodene på treet
+
+        kø.add(rot);                                                //  Roten legges inn i køen
+
+        while (!kø.isEmpty()) {
+            Node<T> fremste = kø.removeFirst();                     //  Fjerner den fremste i køen
+            liste.add(fremste.verdi);                               //  Tar vare på den fjernte og legger inn i listen
+
+            //  Legger inn venstre node i køen
+            if (fremste.venstre != null) {
+                kø.addLast(fremste.venstre);
+            }
+
+            //  Legger inn høyre node i køen
+            if (fremste.høyre != null) {
+                kø.addLast(fremste.høyre);
+            }
+        }
+        return liste;
     }
 
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        SBinTre<K> tre = new SBinTre<K>(c);
+
+        //  For-løkke som legger til verdiene i treet ved hjelp av leggInn-metoden i oppgave 1
+        for (int i = 0; i < data.size(); i++) {
+            tre.leggInn(data.get(i));
+        }
+        return tre;
     }
     public static void main(String[] args) {
         Integer[] a = {4,7,2,9,4,10,8,7,4,6};
