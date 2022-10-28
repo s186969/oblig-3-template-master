@@ -75,3 +75,16 @@ av køen før den legger inn i listen.</p>
 et tre ved hjelp av leggInn-metoden fra oppgave 1.</p>
 
 <h3>Oppgave 6</h3>
+<p>Oppgavetesten ber om at tre metoder skal lages.</p>
+
+<p>I første metode har besvarelsen fulgt instruksene i teksten og kopiert inn programkode 5.2.8 d). For at pekeren 
+<i>forelder</i> skal få riktig verdi, har besvarelsen lagt til en betingelse om sier at hvis noden fjernes, 
+så skal barnet til noden få oppdatert sin forelder. Besvarelsen forstår det slik at "besteforelderen" adopterer 
+barnet.</p>
+
+<p>I andre metode starter med en hjelpevariabel som teller antall forekomster av en <i>verdi</i> som skal slettes.
+Dette gjør den ved hjelp av en while-løkke som itererer gjennom første metode av denne oppgaven og teller antall 
+forekomster av <i>verdi</i>. Metoden avsluttes ved at den returnerer antallet.</p>
+
+<p>I tredje metode starter den med å nulle treet så lenge det ikke er tomt. Den inneholder også en annen metode som 
+traverserer treet rekursivt i postorden og setter verdiene i null for hvert kall. </p>
