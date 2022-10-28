@@ -317,7 +317,7 @@ public class SBinTre<T> {
     //  Se Programkode 5.1.6 a)
     public ArrayList<T> serialize() {
         ArrayList<T> liste = new ArrayList<T>();                    //  En liste over det binæret treet
-        ArrayDeque<Node<T>> kø = new ArrayDeque<Node<T>>();         //  Køen som tar inn nodene på treet
+        ArrayDeque<Node<T>> kø = new ArrayDeque<Node<T>>();               //  Køen som tar inn nodene på treet
 
         kø.add(rot);                                                //  Roten legges inn i køen
 
@@ -346,17 +346,6 @@ public class SBinTre<T> {
             tre.leggInn(data.get(i));
         }
         return tre;
-    }
-    public static void main(String[] args) {
-        int[] a = {4,7,2,9,4,10,8,7,4,6,1};
-        SBinTre<Integer> tre = new SBinTre<>(Comparator.naturalOrder());
-        for (int verdi : a) tre.leggInn(verdi);
-
-        System.out.println(tre.fjernAlle(4));  // 3
-        tre.fjernAlle(7); tre.fjern(8);
-
-        System.out.println(tre.antall());  // 5
-
     }
 
 } // ObligSBinTre
