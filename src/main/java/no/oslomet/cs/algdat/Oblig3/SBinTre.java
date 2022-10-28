@@ -119,12 +119,63 @@ public class SBinTre<T> {
         return true;                                    //  Vellykket innlegging
     }
 
+    //  Oppgave 6
+    //  Se Programkode 5.2.8 d)
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if (verdi == null) return false;  // treet har ingen nullverdier
+
+        Node<T> p = rot, q = null;   // q skal være forelder til p
+
+        while (p != null)            // leter etter verdi
+        {
+            int cmp = comp.compare(verdi,p.verdi);      // sammenligner
+            if (cmp < 0) { q = p; p = p.venstre; }      // går til venstre
+            else if (cmp > 0) { q = p; p = p.høyre; }   // går til høyre
+            else break;    // den søkte verdien ligger i p
+        }
+        if (p == null) return false;   // finner ikke verdi
+
+        if (p.venstre == null || p.høyre == null)  // Tilfelle 1) og 2)
+        {
+            Node<T> b = p.venstre != null ? p.venstre : p.høyre;  // b for barn
+            if (p == rot) rot = b;
+            else if (p == q.venstre) q.venstre = b;
+            else q.høyre = b;
+
+            //  Oppdaterer pekeren til forelder
+            if (b != null) {
+                b.forelder = q;
+            }
+        }
+        else  // Tilfelle 3)
+        {
+            Node<T> s = p, r = p.høyre;   // finner neste i inorden
+            while (r.venstre != null)
+            {
+                s = r;    // s er forelder til r
+                r = r.venstre;
+            }
+
+            p.verdi = r.verdi;   // kopierer verdien i r til p
+
+            if (s != p) s.venstre = r.høyre;
+            else s.høyre = r.høyre;
+        }
+
+        antall--;   // det er nå én node mindre i treet
+        return true;
     }
 
+    //  Oppgave 6
+    //  Se oppgave 3 i avsnitt 5.2.8
     public int fjernAlle(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        int slett = 0;                      //  Hjelpevaribel som skal telle antallet av verdien som skal slettes
+
+        //  While-løkke som søker etter verdien og addere med 1 hvis den finnes
+        while (fjern(verdi)) {
+            slett++;
+        }
+        return slett;                       //  Returner summen av antallet som skal slettes
     }
 
     //  Oppgave 2
@@ -150,12 +201,38 @@ public class SBinTre<T> {
         return antallVerdi;
     }
 
+    //  Oppgave 6
+    //  Se oppgave 5 i avsnitt 5.2.8
     public void nullstill() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        //  Nullstiller så lenge treet ikke er tom
+        if (!tom()) {
+            nullstill(rot);
+        }
+        
+        rot = null;
+        antall = 0;
+    }
+
+    private void nullstill(Node<T> p) {
+        Node<T> barn = p;                   //  Hjelpevariabel for å presisere barn. Alle har en gang vært et barn
+
+        //  Traversere på venstre side
+        if (barn.venstre != null) {
+            nullstill(barn.venstre);        //  Rekursiv kall som setter null på venstre side av subtreet
+            barn.venstre = null;            //  Gir pekeren null
+        }
+
+        //  Traversere på høyre side
+        if (barn.høyre != null) {
+            nullstill(barn.høyre);          //  Rekursiv kall som setter null på høyre side av subtreet
+            barn.høyre = null;              //  Gir pekeren null
+        }
+
+        barn.verdi = null;                  //  Oppgitt verdi blir null
     }
 
     //  Oppgave 3
-    //  Se Programkode 5.1.7 g)
+    //  Se Programkode 5.1.7 h)
     private static <T> Node<T> førstePostorden(Node<T> p) {
         Node<T> barn = p;                                   //  Hjelpevariabel for å presisere barn. Husk at alle har
                                                             //  en gang vært et barn
@@ -184,7 +261,7 @@ public class SBinTre<T> {
         Node<T> barn = p;                                   //  Hjelpevariabel for å presisere barn. Husk at alle har
                                                             //  en gang vært et barn
 
-        Node<T> forelder = barn.forelder;                   //  Hjelpevariabel for å presissere forelder.
+        Node<T> forelder = barn.forelder;                   //  Hjelpevariabel for å presisere forelder.
 
         //  Hvis forelder er null, returnerer den null tilbake. Dette innebærer at det ikke finnes en nestepostorden
         //  hvis treet inneholder kun roten
@@ -235,7 +312,7 @@ public class SBinTre<T> {
     }
 
     //  Oppgave 5
-    //  Se avsnitt 5.1.6  Traverseringer - nivåorden
+    //  Se Programkode 5.1.6 a)
     public ArrayList<T> serialize() {
         ArrayList<T> liste = new ArrayList<T>();                    //  En liste over det binæret treet
         ArrayDeque<Node<T>> kø = new ArrayDeque<Node<T>>();         //  Køen som tar inn nodene på treet
@@ -269,15 +346,15 @@ public class SBinTre<T> {
         return tre;
     }
     public static void main(String[] args) {
-        Integer[] a = {4,7,2,9,4,10,8,7,4,6};
+        int[] a = {4,7,2,9,4,10,8,7,4,6,1};
         SBinTre<Integer> tre = new SBinTre<>(Comparator.naturalOrder());
-        for (int verdi : a) { tre.leggInn(verdi); }
+        for (int verdi : a) tre.leggInn(verdi);
 
-        System.out.println(tre.antall());      // Utskrift: 10
-        System.out.println(tre.antall(5));     // Utskrift: 0
-        System.out.println(tre.antall(4));     // Utskrift: 3
-        System.out.println(tre.antall(7));     // Utskrift: 2
-        System.out.println(tre.antall(10));    // Utskrift: 1
+        System.out.println(tre.fjernAlle(4));  // 3
+        tre.fjernAlle(7); tre.fjern(8);
+
+        System.out.println(tre.antall());  // 5
+
     }
 
 } // ObligSBinTre
