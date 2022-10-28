@@ -2,11 +2,18 @@
 
 Denne oppgaven er en innlevering i Algoritmer og Datastrukturer. 
 Oppgaven er levert av følgende student:
-* Navn Navnesen, S123456, s123456@oslomet.no
+* Alex Vu, s186969, s186969@oslomet.no
 
 
 # Oppgavebeskrivelse
+<h3>Oppgave 1</h3>
 
-I oppgave 1 så gikk jeg frem ved å ...
+<h3>Oppgave 2</h3>
 
-I oppgave 2 så brukte jeg en ... til å ...
+<h3>Oppgave 3</h3>
+
+<h3>Oppgave 4</h3>
+
+<h3>Oppgave 5</h3>
+
+<h3>Oppgave 6</h3>
