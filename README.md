@@ -62,5 +62,16 @@ rekursive kallet. Deretter har den to rekursive kall for henholdsvis venstre sub
 avslutter med å skrive ut noden.</p>
 
 <h3>Oppgave 5</h3>
+<p>Oppgaventeksten stiller to metoder som skal lages.</p>
+
+<p>I første metode har besvarelsen har brukt programkode 5.1.6 a) som inspirasjon for å løse problemstillingen om å 
+gjøre et binært tre om til et array. Besvarelsen starter med å lage en liste som skal ta inn verdiene fra treet. 
+Deretter har besvarelsen en ArrayDeque som skal lage en kø for alle verdiene som skal tas inn. Vi starter med å legge 
+roten av treet inn i køen før metoden gjør gjennom en while-løkke som skal legge nodene i køen. Denne løkken vil sørge 
+for at den første som kommer inn skal være den første som kommer ut. Løkken tar også vare på verdien som går ut 
+av køen før den legger inn i listen.</p>
+
+<p>I andre metode har det blitt benyttet en for-løkke som itererer gjennom et oppgitt array og legger verdiene inn i 
+et tre ved hjelp av leggInn-metoden fra oppgave 1.</p>
 
 <h3>Oppgave 6</h3>
