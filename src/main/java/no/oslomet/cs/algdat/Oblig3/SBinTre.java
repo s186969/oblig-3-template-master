@@ -81,7 +81,6 @@ public class SBinTre<T> {
     }
 
     //  Oppgave 1
-    //  Se Programkode 5.2.3 a)
     public boolean leggInn(T verdi) {
         Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
 
@@ -209,7 +208,7 @@ public class SBinTre<T> {
         if (!tom()) {
             nullstill(rot);
         }
-
+        
         rot = null;
         antall = 0;
     }
