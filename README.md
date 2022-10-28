@@ -68,11 +68,11 @@ avslutter med å skrive ut noden.</p>
 gjøre et binært tre om til et array. Besvarelsen starter med å lage en liste som skal ta inn verdiene fra treet. 
 Deretter har besvarelsen en ArrayDeque som skal lage en kø for alle verdiene som skal tas inn. Vi starter med å legge 
 roten av treet inn i køen før metoden gjør gjennom en while-løkke som skal legge nodene i køen. Denne løkken vil sørge 
-for at den første som kommer inn skal være den første som kommer ut. Løkken tar også vare på verdien som går ut 
-av køen før den legger inn i listen.</p>
+for at den første som kommer inn skal være den første som kommer ut. I dette tilfellet går den nedover og for hvert 
+nivå fra venstre mot høyre. Løkken tar også vare på verdien som går ut av køen før den legger inn i listen.</p>
 
 <div style="text-align: center"><img src="img/img.png"></div>
-<p style="text-align: center"><i> Illustasjon for første metode</i></p>
+<div style="text-align: center"><p><i>(Illustasjon for første metode)</i></p></div>
 
 <p>I andre metode har det blitt benyttet en for-løkke som itererer gjennom et oppgitt array og legger verdiene inn i 
 et tre ved hjelp av leggInn-metoden fra oppgave 1.</p>
