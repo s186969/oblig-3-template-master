@@ -72,7 +72,7 @@ for at den første som kommer inn skal være den første som kommer ut. Løkken 
 av køen før den legger inn i listen.</p>
 
 <div style="text-align: center"><img src="img/img.png"></div>
-<div style="text-align: center"><i>(Illustasjon for første metode)</i></div>
+<p style="text-align: center"><i> Illustasjon for første metode</i></p>
 
 <p>I andre metode har det blitt benyttet en for-løkke som itererer gjennom et oppgitt array og legger verdiene inn i 
 et tre ved hjelp av leggInn-metoden fra oppgave 1.</p>
